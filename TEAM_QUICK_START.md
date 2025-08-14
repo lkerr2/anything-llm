@@ -11,14 +11,20 @@ cd anything-llm
 git checkout team-setup-config
 ```
 
-### 2. Run the Team Setup
+### 2. Set up API Key (Required)
+```bash
+# Set your Anthropic API key (ask Sydney for the key)
+export ANTHROPIC_API_KEY="your-anthropic-api-key-here"
+```
+
+### 3. Run the Team Setup
 ```bash
 cd docker
 chmod +x run-team.sh
 ./run-team.sh
 ```
 
-### 3. Access AnythingLLM
+### 4. Access AnythingLLM
 - Open your browser and go to: **http://localhost:3002**
 - Enter the admin password: **TeamSecurePassword2024!**
 
