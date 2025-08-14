@@ -22,9 +22,17 @@ mkdir -p "$STORAGE_DIR"
 # Copy environment file if it doesn't exist
 if [ ! -f "$STORAGE_DIR/.env" ]; then
     echo "⚙️  Setting up environment configuration..."
-    cp .env "$STORAGE_DIR/.env"
-    echo "✅ Environment file created at $STORAGE_DIR/.env"
-    echo "💡 You can edit this file to customize your setup"
+    cp .env.team.example "$STORAGE_DIR/.env"
+    
+    # Update the API key placeholder if available
+    if [ -n "${ANTHROPIC_API_KEY}" ]; then
+        sed -i.bak "s/sk-ant-your-api-key-here/${ANTHROPIC_API_KEY}/" "$STORAGE_DIR/.env"
+        rm "$STORAGE_DIR/.env.bak" 2>/dev/null || true
+        echo "✅ Environment file created with API key"
+    else
+        echo "✅ Environment file created at $STORAGE_DIR/.env"
+        echo "💡 Edit the .env file and add your ANTHROPIC_API_KEY"
+    fi
 else
     echo "⚙️  Using existing environment file at $STORAGE_DIR/.env"
 fi
@@ -45,6 +53,9 @@ docker run -d \
     -v "$STORAGE_DIR:/app/server/storage" \
     -v "$STORAGE_DIR/.env:/app/server/.env" \
     -e STORAGE_DIR="/app/server/storage" \
+    -e AUTH_TOKEN="TeamSecurePassword2024!" \
+    -e JWT_SECRET="anythingllm-jwt-secret-key-2024-team-workspace-auth" \
+    -e JWT_EXPIRY="30d" \
     --restart unless-stopped \
     mintplexlabs/anythingllm
 
