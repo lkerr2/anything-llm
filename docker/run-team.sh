@@ -40,7 +40,7 @@ fi
 echo "🐳 Starting AnythingLLM team container..."
 docker run -d \
     --name anythingllm-team \
-    -p 3001:3001 \
+    -p 3002:3001 \
     --cap-add SYS_ADMIN \
     -v "$STORAGE_DIR:/app/server/storage" \
     -v "$STORAGE_DIR/.env:/app/server/.env" \
@@ -52,12 +52,12 @@ echo ""
 echo "🎉 AnythingLLM Team Setup Complete!"
 echo "=================================="
 echo ""
-echo "🌐 Access your team instance at: http://localhost:3001"
+echo "🌐 Access your team instance at: http://localhost:3002"
 echo "🔐 Admin password: Check your .env file for AUTH_TOKEN"
 echo "💾 Data stored in: $STORAGE_DIR"
 echo ""
 echo "📚 Next Steps:"
-echo "  1. Go to http://localhost:3001"
+echo "  1. Go to http://localhost:3002"
 echo "  2. Login with your admin password"
 echo "  3. Create user accounts for your team"
 echo "  4. Set up workspaces for collaboration"
